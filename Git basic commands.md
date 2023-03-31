@@ -103,7 +103,7 @@ git pull origin master
 我的 GitHub 项目上显示的当前是 main 分支，写 main 可以正常使用。
 
 ```shell
-# 使用 'main' 可以解决问题
+# 使用 'main' 可以解决问题，省略了最后的本地分支名，默认是和本地的合并。
 git pull origin main
 ```
 

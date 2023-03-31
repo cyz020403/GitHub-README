@@ -1,0 +1,155 @@
+# Git basic commands
+
+## Init repository
+
+### Initialize local repository
+
+```shell
+git init
+```
+
+### Set user name and email
+
+```shell
+git config --global user.name "cyz020403"
+git config --global user.email "cyz020403@gmail.com"
+```
+
+### Set SSH key
+
+这一步是必须要做的，不然就要使用 HTTPS 的地址，但是 HTTPS 的地址也有很多问题需要解决，比如不再能使用密码验证，需要设置 Token，实际上也是比较复杂的。
+
+#### Step 1
+
+这个 SSH key 是给每一个机器配置的，首先检查本地是否已经存在 SSH key。
+
+```shell
+cd ~/.ssh
+ls
+# 检查是否存在 id_rsa 和 id_rsa.pub文件，如果存在，说明已经有SSH Key
+```
+
+#### Step 2
+
+如果不存在，需要生成 SSH key。
+
+```shell
+ssh-keygen -t rsa -C "cyz020403@gmail.com"
+# 如果不需要密码，执行后一直回车即可
+# 生成后可以用 step 1 的命令检查生成的 SSH key
+```
+
+#### Step 3
+
+获取ssh key公钥内容（id_rsa.pub）。
+
+```shell
+cd ~/.ssh
+cat id_rsa.pub
+```
+
+#### Step 4
+
+登陆 GitHub 添加 SSH 公钥。
+
+### Connect github repository
+
+```shell
+# 添加项目的 origin 地址
+git remote add origin https://github.com/cyz020403/GitHub_readme.git
+# SSH 地址的情况
+git remote add origin git@github.com:cyz020403/GitHub_readme.git
+# 显示已经添加的 remote origin
+git remote -v
+# 删除已经存在的 remote 地址
+git remote remove origin
+# 更新 remote 地址，最后的链接可以从 GitHub 项目获取 (这里展示更新为 SSH 地址)
+git remote set-url origin git@github.com:USERNAME/REPONAME.git
+```
+
+## Network setting
+
+Set clash proxy for git
+
+```shell
+# 端口号应与 clash 的设置相匹配
+git config --global http.proxy 'socks5://127.0.0.1:7890'
+git config --global https.proxy 'socks5://127.0.0.1:7890'
+```
+
+## Download project
+
+### clone
+
+```shell
+git init
+git clone url
+# eg. git clone https://github.com/cyz020403/ML_demo
+```
+
+### pull
+
+如果原本的仓库中有一些文件，先 connect github repository + pull，本地协调好所有文件之后，再执行上述步骤进行提交。
+
+```shell
+# 命令格式
+git pull <远程主机名> <远程分支名>:<本地分支名>
+# eg. (origin 是 remote 命令设置的 origin 地址，master 表示的是主分支)
+git pull origin master
+```
+
+这个 master 分支我用的时候并不能使用，应该还涉及到更多关于分支的操作，先不管了。
+
+```shell
+# 使用 'main' 可以解决问题
+git pull origin main
+```
+
+## Upload project
+
+### Add file to local repository
+
+```shell
+git add .         # 添加当前文件夹下的所有文件
+git add **.cpp    # 添加当前文件夹下的**.cpp这个文件
+```
+
+### Set commit instructions
+
+```shell
+git commit -m "layout"  # 引号中的内容为对该文件的描述
+```
+
+### Commit
+
+```shell
+# 不知道 master 分支是干啥的，现在用 main
+git push origin master
+or
+git push origin main
+```
+
+### PAT
+
+**这是一个报错以及解决的记录：使用 HTTPS 地址作为 origin 时，不再接受密码验证，需要设置 Token，我觉得这个不是很好用，就换 SSH 了，实际上没有解决这个问题。**
+
+执行 push 命令出现报错：
+
+```shell
+remote: Support for password authentication was removed on August 13, 2021.
+fatal: Authentication failed for 'https://github.com/cyz020403/GitHub_readme/'
+```
+
+原因（参考 [stackoverflow](https://stackoverflow.com/questions/68775869/message-support-for-password-authentication-was-removed-please-use-a-personal)）：
+
+> From 2021-08-13, GitHub is no longer accepting account passwords when authenticating Git operations.  You need to add a PAT (Personal Access Token) instead, and you can follow the below method to add a PAT on your system.
+>
+> ...
+>
+> 从2021-08-13开始，GitHub在验证Git操作时不再接受帐户密码。您需要添加一个PAT(个人访问令牌)，您可以按照下面的方法在您的系统上添加一个PAT。
+>
+> ...
+
+详细配置过程见 stackoverflow
+
+我发现这个好像是专门给 HTTPS 的地址用的，我想换 SSH 的试试

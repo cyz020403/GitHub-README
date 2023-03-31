@@ -168,14 +168,12 @@ fatal: Authentication failed for 'https://github.com/cyz020403/GitHub_readme/'
 
 我们想避免这个文件上传至 GitHub，使用以下命令
 
-1. 将 . DS_Store 加入全局的 .gitignore 文件。
-
 ```shell
-echo .DS_Store >> ~/.gitignore_global
+# remove any existing files from the repo, skipping over ones not in repo
+find . -name .DS_Store -print0 | xargs -0 git rm --ignore-unmatch
+# specify a global exclusion list
+git config --global core.excludesfile ~/.gitignore
+# adding .DS_Store to that list
+echo .DS_Store >> ~/.gitignore
 ```
 
-2. 将这个全局的 .gitignore 文件加入Git的全局config文件中。
-
-```shell
-git config --global core.excludesfile ~/.gitignore_global
-```

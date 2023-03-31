@@ -100,6 +100,8 @@ git pull origin master
 
 这个 master 分支我用的时候并不能使用，应该还涉及到更多关于分支的操作，先不管了。
 
+我的 GitHub 项目上显示的当前是 main 分支，写 main 可以正常使用。
+
 ```shell
 # 使用 'main' 可以解决问题
 git pull origin main
@@ -125,7 +127,7 @@ git commit -m "layout"  # 引号中的内容为对该文件的描述
 ### Push
 
 ```shell
-# 不知道 master 分支是干啥的，现在用 main
+# 不知道 master 分支是干啥的，现在用 main，GitHub 上显示的分支信息也是 main
 git push origin master
 or
 git push origin main
@@ -152,6 +154,28 @@ fatal: Authentication failed for 'https://github.com/cyz020403/GitHub_readme/'
 >
 > ...
 
-详细配置过程见 stackoverflow
+详细配置过程见 stackoverflow。
 
-我发现这个好像是专门给 HTTPS 的地址用的，我想换 SSH 的试试
+我发现这个好像是专门给 HTTPS 的地址用的，我想换 SSH 的试试。
+
+### mac OS's '.DS_Store'
+
+在mac OS 中，上传项目会同时上传 `.DS_Store` 文件，这个文件不可见，使用 `command + shift + .` 显示隐藏文件都看不到，只能使用 `ls -la` 查看。
+
+> DS_Store，英文全称是 Desktop Services Store（[桌面服务](https://www.zhihu.com/search?q=桌面服务&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A2251496232})存储），开头的 DS 是 Desktop Services（桌面服务） 的缩写。它是一种由macOS系统自动创建的隐藏文件，存在于每一个用「访达」打开过的文件夹下面。
+>
+> DS_Store 文件的主要作用，是存储当前文件夹在桌面显示相关方面的一些[自定义属性](https://www.zhihu.com/search?q=自定义属性&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A2251496232})，包括文件图标的位置、文件夹上次打开时窗口的大小、展现形式和位置等。这有助于保留为特定文件夹配置的设置，例如，将桌面文件夹设置为查看按名称排序的图标，同时将[下载文件夹](https://www.zhihu.com/search?q=下载文件夹&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A2251496232})配置为将文件显示为列表并按日期排序，最近修改的先显示。
+
+我们想避免这个文件上传至 GitHub，使用以下命令
+
+1. 将 . DS_Store 加入全局的 .gitignore 文件。
+
+```shell
+echo .DS_Store >> ~/.gitignore_global
+```
+
+2. 将这个全局的 .gitignore 文件加入Git的全局config文件中。
+
+```shell
+git config --global core.excludesfile ~/.gitignore_global
+```

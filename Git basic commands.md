@@ -79,7 +79,7 @@ git config --global https.proxy 'socks5://127.0.0.1:7890'
 
 ## Download project
 
-### clone
+### Clone
 
 ```shell
 git init
@@ -87,7 +87,7 @@ git clone url
 # eg. git clone https://github.com/cyz020403/ML_demo
 ```
 
-### pull
+### Pull
 
 如果原本的仓库中有一些文件，先 connect github repository + pull，本地协调好所有文件之后，再执行上述步骤进行提交。
 
@@ -116,11 +116,13 @@ git add **.cpp    # 添加当前文件夹下的**.cpp这个文件
 
 ### Set commit instructions
 
+这一步是必须的，最后不加 -m 需要用 vim 打 commit 内容
+
 ```shell
 git commit -m "layout"  # 引号中的内容为对该文件的描述
 ```
 
-### Commit
+### Push
 
 ```shell
 # 不知道 master 分支是干啥的，现在用 main
@@ -129,7 +131,7 @@ or
 git push origin main
 ```
 
-### PAT
+### PAT (Personal Access Token)
 
 **这是一个报错以及解决的记录：使用 HTTPS 地址作为 origin 时，不再接受密码验证，需要设置 Token，我觉得这个不是很好用，就换 SSH 了，实际上没有解决这个问题。**
 

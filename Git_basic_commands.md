@@ -12,7 +12,7 @@ git init
 
 ```shell
 git config --global user.name "cyz020403"
-git config --global user.email "cyz020403@gmail.com"
+git config --global user.email "cyz020403@outlook.com"
 ```
 
 ### Set SSH key

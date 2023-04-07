@@ -1,3 +1,3 @@
 # GitHub-README
 
-A notebook on how to use GitHub
+A notebook on how to use GitHub.

@@ -1,4 +1,6 @@
-# Git basic commands
+# GitHub-README
+
+Git basic commands
 
 ## Init repository
 
